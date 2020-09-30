@@ -195,7 +195,8 @@ void ControlMovement (objtype *ob)
 	//
 	// not strafing
 	//
-		anglefrac += controlx;
+		if (!mouselookenabled)
+			anglefrac += controlx;
 		angleunits = anglefrac/ANGLESCALE;
 		anglefrac -= angleunits*ANGLESCALE;
 		ob->angle -= angleunits;
