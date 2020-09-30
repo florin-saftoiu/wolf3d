@@ -1784,6 +1784,9 @@ void CP_Control(void)
 				mouseenabled^=1;
 				_CX=_DX=CENTER;
 				Mouse(4);
+				if (!mouseenabled) {
+					mouselookenabled = false;
+				}
 				DrawCtlScreen();
 				CusItems.curpos=-1;
 				ShootSnd();
@@ -1998,7 +2001,7 @@ void DrawCtlScreen(void)
   CtlMenu[0].active=1;
  }
 
- CtlMenu[5].active=mouseenabled;
+ CtlMenu[1].active=CtlMenu[5].active=mouseenabled;
 
 
  DrawMenu(&CtlItems,&CtlMenu[0]);
