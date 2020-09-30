@@ -55,7 +55,7 @@ byte		update[UPDATESIZE];
 //
 // control info
 //
-boolean		mouseenabled,joystickenabled,joypadenabled,joystickprogressive;
+boolean		mouseenabled,mouselookenabled,joystickenabled,joypadenabled,joystickprogressive;
 int			joystickport;
 int			dirscan[4] = {sc_UpArrow,sc_RightArrow,sc_DownArrow,sc_LeftArrow};
 int			buttonscan[NUMBUTTONS] =
@@ -75,6 +75,7 @@ memptr		demobuffer;
 // curent user input
 //
 int			controlx,controly;		// range from -100 to 100 per tic
+int			mouselookx,mouselooky;
 boolean		buttonstate[NUMBUTTONS];
 
 
@@ -207,7 +208,7 @@ int songs[]=
  XFUNKIE_MUS,
  XDEATH_MUS,
  XGETYOU_MUS,		// DON'T KNOW
- ULTIMATE_MUS,	// Trans Gr”sse
+ ULTIMATE_MUS,	// Trans Grï¿½sse
 
  DUNGEON_MUS,
  GOINGAFT_MUS,
@@ -381,8 +382,13 @@ void PollMouseMove (void)
 	mousexmove = _CX;
 	mouseymove = _DX;
 
-	controlx += mousexmove*10/(13-mouseadjustment);
-	controly += mouseymove*20/(13-mouseadjustment);
+	if (!mouselookenabled) {
+		controlx += mousexmove*10/(13-mouseadjustment);
+		controly += mouseymove*20/(13-mouseadjustment);
+	} else {
+		mouselookx = mousexmove*10/(13-mouseadjustment);
+		mouselooky = mouseymove*20/(13-mouseadjustment);
+	}
 }
 
 

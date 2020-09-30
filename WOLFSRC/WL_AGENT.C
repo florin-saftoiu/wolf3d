@@ -136,7 +136,7 @@ void CheckWeaponChange (void)
 =
 = ControlMovement
 =
-= Takes controlx,controly, and buttonstate[bt_strafe]
+= Takes controlx,controly, mouselookx, mouselookenabled and buttonstate[bt_strafe]
 =
 = Changes the player's angle and position
 =
@@ -157,6 +157,13 @@ void ControlMovement (objtype *ob)
 
 	oldx = player->x;
 	oldy = player->y;
+
+//
+// mouse look
+//
+	if (mouselookenabled) {
+		anglefrac += mouselookx;
+	}
 
 //
 // side to side move

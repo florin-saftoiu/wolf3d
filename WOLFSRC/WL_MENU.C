@@ -53,7 +53,7 @@ CP_iteminfo
 	MainItems={MENU_X,MENU_Y,10,STARTITEM,24},
 	SndItems={SM_X,SM_Y1,12,0,52},
 	LSItems={LSM_X,LSM_Y,10,0,24},
-	CtlItems={CTL_X,CTL_Y,6,-1,56},
+	CtlItems={CTL_X,CTL_Y,7,-1,56},
 	CusItems={8,CST_Y+13*2,9,-1,0},
 	NewEitems={NE_X,NE_Y,11,0,88},
 	NewItems={NM_X,NM_Y,4,2,24};
@@ -142,6 +142,7 @@ far CtlMenu[]=
 	{1,"",CustomControls}
 #else
 	{0,STR_MOUSEEN,0},
+	{0,STR_MOUSELOOKEN,0},
 	{0,STR_JOYEN,0},
 	{0,STR_PORT2,0},
 	{0,STR_GAMEPAD,0},
@@ -1761,7 +1762,7 @@ int CalibrateJoystick(void)
 void CP_Control(void)
 {
 	#define CTL_SPC	70
-	enum {MOUSEENABLE,JOYENABLE,USEPORT2,PADENABLE,MOUSESENS,CUSTOMIZE};
+	enum {MOUSEENABLE,MOUSELOOK,JOYENABLE,USEPORT2,PADENABLE,MOUSESENS,CUSTOMIZE};
 	int i,which;
 
 
@@ -1785,6 +1786,12 @@ void CP_Control(void)
 				Mouse(4);
 				DrawCtlScreen();
 				CusItems.curpos=-1;
+				ShootSnd();
+				break;
+
+			case MOUSELOOK:
+				mouselookenabled^=1;
+				DrawCtlScreen();
 				ShootSnd();
 				break;
 
@@ -1978,19 +1985,20 @@ void DrawCtlScreen(void)
  SETFONTCOLOR(TEXTCOLOR,BKGDCOLOR);
 
  if (JoysPresent[0])
-   CtlMenu[1].active=
    CtlMenu[2].active=
-   CtlMenu[3].active=1;
+   CtlMenu[3].active=
+   CtlMenu[4].active=1;
 
- CtlMenu[2].active=CtlMenu[3].active=joystickenabled;
+ CtlMenu[3].active=CtlMenu[4].active=joystickenabled;
 
  if (MousePresent)
  {
-  CtlMenu[4].active=
+  CtlMenu[1].active=
+  CtlMenu[5].active=
   CtlMenu[0].active=1;
  }
 
- CtlMenu[4].active=mouseenabled;
+ CtlMenu[5].active=mouseenabled;
 
 
  DrawMenu(&CtlItems,&CtlMenu[0]);
@@ -2004,18 +2012,24 @@ void DrawCtlScreen(void)
    VWB_DrawPic(x,y,C_NOTSELECTEDPIC);
 
  y=CTL_Y+16;
- if (joystickenabled)
+ if (mouselookenabled)
    VWB_DrawPic(x,y,C_SELECTEDPIC);
  else
    VWB_DrawPic(x,y,C_NOTSELECTEDPIC);
 
  y=CTL_Y+29;
- if (joystickport)
+ if (joystickenabled)
    VWB_DrawPic(x,y,C_SELECTEDPIC);
  else
    VWB_DrawPic(x,y,C_NOTSELECTEDPIC);
 
  y=CTL_Y+42;
+ if (joystickport)
+   VWB_DrawPic(x,y,C_SELECTEDPIC);
+ else
+   VWB_DrawPic(x,y,C_NOTSELECTEDPIC);
+
+ y=CTL_Y+55;
  if (joypadenabled)
    VWB_DrawPic(x,y,C_SELECTEDPIC);
  else
@@ -2025,7 +2039,7 @@ void DrawCtlScreen(void)
  // PICK FIRST AVAILABLE SPOT
  //
  if (CtlItems.curpos<0 || !CtlMenu[CtlItems.curpos].active)
-   for (i=0;i<6;i++)
+   for (i=0;i<7;i++)
 	 if (CtlMenu[i].active)
 	 {
 	  CtlItems.curpos=i;

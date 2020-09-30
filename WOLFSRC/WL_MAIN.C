@@ -107,6 +107,7 @@ void ReadConfig(void)
 		read(file,&sds,sizeof(sds));
 
 		read(file,&mouseenabled,sizeof(mouseenabled));
+		read(file,&mouselookenabled,sizeof(mouselookenabled));
 		read(file,&joystickenabled,sizeof(joystickenabled));
 		read(file,&joypadenabled,sizeof(joypadenabled));
 		read(file,&joystickprogressive,sizeof(joystickprogressive));
@@ -206,6 +207,7 @@ void WriteConfig(void)
 		write(file,&DigiMode,sizeof(DigiMode));
 
 		write(file,&mouseenabled,sizeof(mouseenabled));
+		write(file,&mouselookenabled,sizeof(mouselookenabled));
 		write(file,&joystickenabled,sizeof(joystickenabled));
 		write(file,&joypadenabled,sizeof(joypadenabled));
 		write(file,&joystickprogressive,sizeof(joystickprogressive));
