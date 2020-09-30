@@ -133,8 +133,10 @@ void ReadConfig(void)
 			(sds == sds_SoundSource && !SoundSourcePresent))
 			sds = sds_Off;
 
-		if (!MousePresent)
+		if (!MousePresent) {
 			mouseenabled = false;
+			mouselookenabled = false;
+		}
 		if (!JoysPresent[joystickport])
 			joystickenabled = false;
 

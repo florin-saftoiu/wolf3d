@@ -168,7 +168,7 @@ void ControlMovement (objtype *ob)
 //
 // side to side move
 //
-	if (buttonstate[bt_strafe])
+	if (buttonstate[bt_strafe] || mouselookenabled)
 	{
 	//
 	// strafing
@@ -189,7 +189,8 @@ void ControlMovement (objtype *ob)
 			Thrust (angle,-controlx*MOVESCALE);	// move to right
 		}
 	}
-	else
+	
+	if (!buttonstate[bt_strafe] || mouselookenabled)
 	{
 	//
 	// not strafing
