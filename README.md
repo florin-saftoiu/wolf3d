@@ -22,13 +22,14 @@ Stuff I've done to `WOLFSRC\WOLF3D.PRJ`
 Using VSCode for **editing** the source code
 ----------------------------------------
 * Put DOSBox on your `PATH`
-* For building the project, create a task in your `tasks.json` that looks like this :
+* Create the following tasks in your `tasks.json` that looks like this :
 ```
 {
-    ...
+    "label": "build wolf3d",
     "type": "shell",
     "command": "dosbox",
     "args": [
+        "-noconsole",
         "-c",
         "'MOUNT C ${workspaceFolder}\\..\\..'",
         "-c",
@@ -40,9 +41,44 @@ Using VSCode for **editing** the source code
         "-c",
         "'C:\\BORLANDC\\BIN\\BC.EXE /b WOLF3D.PRJ'",
         "-c",
-        "'EXIT'"
+        "'IF ERRORLEVEL 0 IF NOT ERRORLEVEL 1 EXIT'"
     ]
-    ...
+},
+{
+    "label": "run wolf3d",
+    "type": "shell",
+    "command": "dosbox",
+    "args": [
+        "WOLF3D.EXE",
+        "-noconsole",
+        "-exit"
+    ]
+},
+{
+    "label": "build, then run wolf3d",
+    "type": "shell",
+    "command": "dosbox",
+    "args": [
+        "-noconsole",
+        "-c",
+        "'MOUNT C ${workspaceFolder}\\..\\..'",
+        "-c",
+        "'SET PATH=C:\\BORLANDC\\BIN;%%PATH%%'",
+        "-c",
+        "'C:\\'",
+        "-c",
+        "'CD WOLF3D\\WOLFSRC'",
+        "-c",
+        "'C:\\BORLANDC\\BIN\\BC.EXE /b WOLF3D.PRJ'",
+        "-c",
+        "'IF ERRORLEVEL 0 IF NOT ERRORLEVEL 1 WOLF3D.EXE'",
+        "-c",
+        "'IF ERRORLEVEL 0 IF NOT ERRORLEVEL 1 EXIT'"
+    ],
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    }
 }
 ```
 * To run the game use `dosbox WOLF3D.EXE -exit`

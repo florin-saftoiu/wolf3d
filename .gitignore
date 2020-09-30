@@ -11,3 +11,7 @@ TC*.SWP
 
 # vscode ide files
 .vscode
+
+# DOSBox output files
+stderr.txt
+stdout.txt
