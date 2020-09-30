@@ -44,6 +44,7 @@
 #define	STR_SB		"Sound Blaster"
 
 #define	STR_MOUSEEN	"Mouse Enabled"
+#define STR_MOUSELOOKEN "Mouse Look Enabled"
 #define	STR_JOYEN	"Joystick Enabled"
 #define	STR_PORT2	"Use joystick port 2"
 #define	STR_GAMEPAD	"Gravis GamePad Enabled"

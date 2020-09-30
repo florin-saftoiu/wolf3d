@@ -890,7 +890,7 @@ extern	int			extravbls;
 //
 // control info
 //
-extern	boolean		mouseenabled,joystickenabled,joypadenabled,joystickprogressive;
+extern	boolean		mouseenabled,mouselookenabled,joystickenabled,joypadenabled,joystickprogressive;
 extern	int			joystickport;
 extern	int			dirscan[4];
 extern	int			buttonscan[NUMBUTTONS];
