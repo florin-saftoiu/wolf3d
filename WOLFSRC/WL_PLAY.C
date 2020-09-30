@@ -75,6 +75,7 @@ memptr		demobuffer;
 // curent user input
 //
 int			controlx,controly;		// range from -100 to 100 per tic
+int			mouselookx,mouselooky;
 boolean		buttonstate[NUMBUTTONS];
 
 
@@ -381,8 +382,13 @@ void PollMouseMove (void)
 	mousexmove = _CX;
 	mouseymove = _DX;
 
-	controlx += mousexmove*10/(13-mouseadjustment);
-	controly += mouseymove*20/(13-mouseadjustment);
+	if (!mouselookenabled) {
+		controlx += mousexmove*10/(13-mouseadjustment);
+		controly += mouseymove*20/(13-mouseadjustment);
+	} else {
+		mouselookx = mousexmove*10/(13-mouseadjustment);
+		mouselooky = mouseymove*20/(13-mouseadjustment);
+	}
 }
 
 
