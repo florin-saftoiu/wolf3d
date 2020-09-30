@@ -1,0 +1,13 @@
+*.OBJ
+!WOLFSRC/OBJ/SIGNON.OBJ
+!WOLFSRC/OBJ/GAMEPAL.OBJ
+
+# wolf3d data files
+*.WL6
+
+# borland c++ ide files
+TC*.SWP
+*.BAK
+
+# vscode ide files
+.vscode
